@@ -16,7 +16,6 @@ namespace JornalAberto2019.Migrations
 
         protected override void Seed(JornalAberto2019.Models.ApplicationDbContext context)
         {
-            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var roleManager = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(context));
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
