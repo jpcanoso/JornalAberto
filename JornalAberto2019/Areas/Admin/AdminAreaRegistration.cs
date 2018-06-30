@@ -4,6 +4,7 @@ namespace JornalAberto2019.Areas.Admin
 {
     public class AdminAreaRegistration : AreaRegistration 
     {
+        // src: https://msdn.microsoft.com/pt-br/library/dn877998.aspx
         public override string AreaName 
         {
             get 
