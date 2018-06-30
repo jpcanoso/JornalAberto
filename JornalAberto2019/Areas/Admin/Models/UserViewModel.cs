@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using JornalAberto2019.Models;
 
-namespace JornalAberto2019.Models
+namespace JornalAberto2019.Areas.Admin.Models
 {
     public class UserViewModel
     {

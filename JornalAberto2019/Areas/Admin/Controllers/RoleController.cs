@@ -5,13 +5,15 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using JornalAberto2019.Areas.Admin.Models;
 using JornalAberto2019.Models;
 using Microsoft.AspNet.Identity.Owin;
 
 // src: https://www.youtube.com/watch?v=IngL0-alQYk
 
-namespace JornalAberto2019.Controllers
+namespace JornalAberto2019.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class RoleController : Controller
     {
         private ApplicationRoleManager _roleManager;

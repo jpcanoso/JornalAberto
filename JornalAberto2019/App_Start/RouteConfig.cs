@@ -17,6 +17,8 @@ namespace JornalAberto2019
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                // definir manualmente o namespace pois estamos a utilizar areas
+                , namespaces: new[] { "JornalAberto2019.Controllers" }
             );
         }
     }

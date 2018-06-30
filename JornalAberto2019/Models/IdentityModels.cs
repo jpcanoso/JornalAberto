@@ -79,6 +79,8 @@ namespace JornalAberto2019.Models
                 .WillCascadeOnDelete(false);
         }
 
-        public System.Data.Entity.DbSet<JornalAberto2019.Models.UserViewModel> UserViewModels { get; set; }
+        public System.Data.Entity.DbSet<JornalAberto2019.Areas.Admin.Models.UserViewModel> UserViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<JornalAberto2019.Areas.Admin.Models.RoleViewModel> RoleViewModels { get; set; }
     }
 }

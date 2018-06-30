@@ -7,12 +7,14 @@ using System.Net.Configuration;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using JornalAberto2019.Areas.Admin.Models;
 using JornalAberto2019.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
-namespace JornalAberto2019.Controllers
+namespace JornalAberto2019.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class UserController : Controller
     {
         private ApplicationUserManager _userManager;
