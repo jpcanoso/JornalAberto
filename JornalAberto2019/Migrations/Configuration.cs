@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Web;
+using System.Collections.Generic;
 using JornalAberto2019.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -19,7 +16,8 @@ namespace JornalAberto2019.Migrations
 
         protected override void Seed(JornalAberto2019.Models.ApplicationDbContext context)
         {
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roleManager = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(context));
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
             var password = "Teste123!";
@@ -28,7 +26,7 @@ namespace JornalAberto2019.Migrations
             if (!roleManager.RoleExists("Administrador"))
             {
                 // Adiciona a role
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new ApplicationRole();
                 role.Name = "Administrador";
                 roleManager.Create(role);
 
@@ -50,7 +48,7 @@ namespace JornalAberto2019.Migrations
             // Criar a regra Moderador
             if (!roleManager.RoleExists("Moderador"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new ApplicationRole();
                 role.Name = "Moderador";
                 roleManager.Create(role);
 
@@ -72,7 +70,7 @@ namespace JornalAberto2019.Migrations
             // Criar a regra Utilizador
             if (!roleManager.RoleExists("Utilizador"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new ApplicationRole();
                 role.Name = "Utilizador";
                 roleManager.Create(role);
 

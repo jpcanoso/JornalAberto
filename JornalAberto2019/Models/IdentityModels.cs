@@ -56,7 +56,6 @@ namespace JornalAberto2019.Models
         public virtual DbSet<NoticiasCategorias> NoticiasCategorias { get; set; }   // NoticiasCategorias
         public virtual DbSet<NoticiasImagens> NoticiasImagens { get; set; }         // NoticiasImagens
         public virtual DbSet<Noticias> Noticias { get; set; }                       // Noticias
-        public virtual DbSet<Utilizadores> Utilizadores { get; set; }               // Utilizadores
         public virtual DbSet<Pagamentos> Pagamentos { get; set; }                   // Pagamentos
         public virtual DbSet<Publicidade> Publicidade { get; set; }                 // Publicidade
 

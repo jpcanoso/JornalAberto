@@ -13,8 +13,8 @@ namespace JornalAberto2019.Models
         public int PagamentoID { get; set; }
 
         [ForeignKey("Utilizador")]
-        public int PagoPor { get; set; }
-        public virtual Utilizadores Utilizador { get; set; }
+        public string PagoPor { get; set; }
+        public virtual ApplicationUser Utilizador { get; set; }
 
         //[ForeignKey("Publicidade")]
         //public int PublicidadeID { get; set; }

@@ -19,8 +19,8 @@ namespace JornalAberto2019.Models
         public int NoticiaID { get; set; }
 
 
-        public int InseridaPorID { get; set; }
-        public virtual Utilizadores InseridaPor { get; set; }
+        public string InseridaPorID { get; set; }
+        public virtual ApplicationUser InseridaPor { get; set; }
 
         [Required]
         [Column(TypeName = "date")]
@@ -45,8 +45,8 @@ namespace JornalAberto2019.Models
         [Required]
         public bool Aprovada { get; set; }
 
-        public int AprovadaPorID { get; set; }
-        public virtual Utilizadores AprovadaPor { get; set; }
+        public string AprovadaPorID { get; set; }
+        public virtual ApplicationUser AprovadaPor { get; set; }
 
         public int? NumeroVisualizacoes { get; set; }
     }
