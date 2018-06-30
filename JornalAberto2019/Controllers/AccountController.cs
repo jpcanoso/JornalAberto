@@ -94,8 +94,6 @@ namespace JornalAberto2019.Controllers
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -133,16 +131,9 @@ namespace JornalAberto2019.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    //return RedirectToAction("Index", "Home");
-                    var utilizador = new Utilizadores
-                    {
-                        AspNetID = user.Id,
-                        Pontos = 10
-                    };
 
+                    // add role to user
                     await UserManager.AddToRoleAsync(user.Id, "Utilizador");
-                    db.Utilizadores.Add(utilizador);
-                    db.SaveChanges();
 
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirmar conta");
 

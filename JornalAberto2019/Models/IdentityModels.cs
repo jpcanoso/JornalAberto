@@ -80,6 +80,6 @@ namespace JornalAberto2019.Models
                 .WillCascadeOnDelete(false);
         }
 
-        //public System.Data.Entity.DbSet<JornalAberto2019.Models.RoleViewModel> RoleViewModels { get; set; }
+        public System.Data.Entity.DbSet<JornalAberto2019.Models.UserViewModel> UserViewModels { get; set; }
     }
 }
