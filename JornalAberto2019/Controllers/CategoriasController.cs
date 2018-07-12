@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -26,12 +27,12 @@ namespace JornalAberto2019.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categorias categorias = db.Categorias.Find(id);
-            if (categorias == null)
+            Categorias categoria = db.Categorias.Find(id);
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
-            return View(categorias);
+            return View(categoria);
         }
 
         // GET: Categorias/Create
@@ -45,16 +46,16 @@ namespace JornalAberto2019.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoriaID,NomeCategoria")] Categorias categorias)
+        public ActionResult Create([Bind(Include = "CategoriaID,NomeCategoria,Menu")] Categorias categoria)
         {
             if (ModelState.IsValid)
             {
-                db.Categorias.Add(categorias);
+                db.Categorias.Add(categoria);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(categorias);
+            return View(categoria);
         }
 
         // GET: Categorias/Edit/5
@@ -64,12 +65,12 @@ namespace JornalAberto2019.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categorias categorias = db.Categorias.Find(id);
-            if (categorias == null)
+            Categorias categoria = db.Categorias.Find(id);
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
-            return View(categorias);
+            return View(categoria);
         }
 
         // POST: Categorias/Edit/5
@@ -77,15 +78,15 @@ namespace JornalAberto2019.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoriaID,NomeCategoria")] Categorias categorias)
+        public ActionResult Edit([Bind(Include = "CategoriaID,NomeCategoria,Menu")] Categorias categoria)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(categorias).State = EntityState.Modified;
+                db.Entry(categoria).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(categorias);
+            return View(categoria);
         }
 
         // GET: Categorias/Delete/5
@@ -95,12 +96,12 @@ namespace JornalAberto2019.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categorias categorias = db.Categorias.Find(id);
-            if (categorias == null)
+            Categorias categoria = db.Categorias.Find(id);
+            if (categoria == null)
             {
                 return HttpNotFound();
             }
-            return View(categorias);
+            return View(categoria);
         }
 
         // POST: Categorias/Delete/5
@@ -108,8 +109,8 @@ namespace JornalAberto2019.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Categorias categorias = db.Categorias.Find(id);
-            db.Categorias.Remove(categorias);
+            Categorias categoria = db.Categorias.Find(id);
+            db.Categorias.Remove(categoria);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

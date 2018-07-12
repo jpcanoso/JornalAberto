@@ -19,10 +19,17 @@
             @Html.DisplayFor(model => model.NomeCategoria)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Menu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Menu)
+        </dd>
+
     </dl>
 
-    @using (Html.BeginForm())
-    {
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

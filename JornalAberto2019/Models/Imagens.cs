@@ -8,6 +8,7 @@ namespace JornalAberto2019.Models
 {
     public class Imagens
     {
+
         [Key]
         public int ImagemID { get; set; }
 
@@ -18,5 +19,7 @@ namespace JornalAberto2019.Models
         [Required]
         [StringLength(120)]
         public string Path { get; set; }
+
+        public Noticias NoticiaID { get; set; }
     }
 }

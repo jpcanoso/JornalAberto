@@ -14,20 +14,26 @@
         <th>
             @Html.DisplayNameFor(model => model.NomeCategoria)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Menu)
+        </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeCategoria)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.CategoriaID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.CategoriaID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.CategoriaID })
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeCategoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Menu)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CategoriaID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CategoriaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CategoriaID })
+        </td>
+    </tr>
+}
 
 </table>

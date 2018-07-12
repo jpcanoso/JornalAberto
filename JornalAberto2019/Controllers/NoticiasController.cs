@@ -7,12 +7,15 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JornalAberto2019.Models;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 
 namespace JornalAberto2019.Controllers
 {
     public class NoticiasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationUserManager _userManager;
 
         // GET: Noticias
         public ActionResult Index()
@@ -39,8 +42,10 @@ namespace JornalAberto2019.Controllers
         // GET: Noticias/Create
         public ActionResult Create()
         {
-            ViewBag.AprovadaPorID = new SelectList(db.Users, "Id", "Nome");
-            ViewBag.InseridaPorID = new SelectList(db.Users, "Id", "Nome");
+            var noticia = new Noticias();
+            noticia.ListaCategorias = new List<Categorias>();
+            PopulateNoticiasCategorias(noticia);
+
             return View();
         }
 
@@ -49,18 +54,47 @@ namespace JornalAberto2019.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NoticiaID,InseridaPorID,DataNoticia,Titulo,Descricao,Corpo,Aprovada,AprovadaPorID,NumeroVisualizacoes")] Noticias noticias)
+        public ActionResult Create([Bind(Include = "NoticiaID,DataNoticia,Titulo,Descricao,Corpo")] Noticias noticia, string[] selectedCategories)
         {
             if (ModelState.IsValid)
             {
-                db.Noticias.Add(noticias);
+                // se forem selecionadas categorias
+                if (selectedCategories != null)
+                {
+                    // nova lista de categorias
+                    noticia.ListaCategorias = new List<Categorias>();
+                    foreach (var categoria in selectedCategories)
+                    {
+                        var catToAdd = db.Categorias.Find(int.Parse(categoria));
+                        noticia.ListaCategorias.Add(catToAdd);
+                    }
+                }
+
+                // colocar automaticamente userID no Inserida Por
+                noticia.InseridaPorID = getUserID();
+
+                //verificar roles do utilizador
+                if (User.IsInRole("Administrador") || User.IsInRole("Moderador"))
+                {
+                    // aprova automaticamente a noticia
+                    noticia.Aprovada = true;
+                    noticia.AprovadaPorID = getUserID();
+                }
+
+                // definir data
+                if (noticia.DataNoticia.ToString().IsNullOrWhiteSpace())
+                {
+                    noticia.DataNoticia = DateTime.Now;
+                }
+
+                db.Noticias.Add(noticia);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AprovadaPorID = new SelectList(db.Users, "Id", "Nome", noticias.AprovadaPorID);
-            ViewBag.InseridaPorID = new SelectList(db.Users, "Id", "Nome", noticias.InseridaPorID);
-            return View(noticias);
+            // popular noticia com todas as categorias
+            PopulateNoticiasCategorias(noticia);
+            return View(noticia);
         }
 
         // GET: Noticias/Edit/5
@@ -70,14 +104,20 @@ namespace JornalAberto2019.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Noticias noticias = db.Noticias.Find(id);
-            if (noticias == null)
+            //Noticias noticias = db.Noticias.Find(id);
+            Noticias noticia = db.Noticias
+                .Include(n => n.ListaCategorias)
+                .Where(i => i.NoticiaID == id)
+                .Single();
+
+            PopulateNoticiasCategorias(noticia);
+
+            if (noticia == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AprovadaPorID = new SelectList(db.Users, "Id", "Nome", noticias.AprovadaPorID);
-            ViewBag.InseridaPorID = new SelectList(db.Users, "Id", "Nome", noticias.InseridaPorID);
-            return View(noticias);
+
+            return View(noticia);
         }
 
         // POST: Noticias/Edit/5
@@ -85,17 +125,63 @@ namespace JornalAberto2019.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "NoticiaID,InseridaPorID,DataNoticia,Titulo,Descricao,Corpo,Aprovada,AprovadaPorID,NumeroVisualizacoes")] Noticias noticias)
+        public ActionResult Edit(int id, Noticias model, string[] selectedCategories)
         {
+            var noticia = db.Noticias.Find(id);
+            if (noticia == null)
+            {
+                return new HttpNotFoundResult();
+            }
+
             if (ModelState.IsValid)
             {
-                db.Entry(noticias).State = EntityState.Modified;
+                if (noticia.Aprovada == false && model.Aprovada == true)
+                {
+                    noticia.AprovadaPorID = getUserID();
+                }
+
+
+                // atualizar categorias
+                // se nenhuma categoria for selecionada, cria uma lista de categorias
+                if (selectedCategories == null)
+                {
+                    noticia.ListaCategorias = new List<Categorias>();
+                    //return;
+                }
+
+                // Lista de categorias seleciconadas
+                var newSelectedCategories = new HashSet<string>(selectedCategories);
+                // Lista de categorias existentes na noticia
+                var existingNoticiasCategorias = new HashSet<int>(noticia.ListaCategorias.Select(c => c.CategoriaID));
+
+                // itera por todas as categorias
+                foreach (var cat in db.Categorias)
+                {
+                    if (newSelectedCategories.Contains(cat.CategoriaID.ToString()))
+                    {
+                        // se a categoria nao estiver atribuida à noticia
+                        if (!existingNoticiasCategorias.Contains(cat.CategoriaID))
+                        {
+                            noticia.ListaCategorias.Add(cat);
+                        }
+                    }
+                    else
+                    {
+                        // se a categoria já nao estiver atribuida à noticia
+                        if (existingNoticiasCategorias.Contains(cat.CategoriaID))
+                        {
+                            noticia.ListaCategorias.Remove(cat);
+                        }
+                    }
+                }
+
+                db.Entry(noticia).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AprovadaPorID = new SelectList(db.Users, "Id", "Nome", noticias.AprovadaPorID);
-            ViewBag.InseridaPorID = new SelectList(db.Users, "Id", "Nome", noticias.InseridaPorID);
-            return View(noticias);
+
+            PopulateNoticiasCategorias(noticia);
+            return View(noticia);
         }
 
         // GET: Noticias/Delete/5
@@ -118,8 +204,10 @@ namespace JornalAberto2019.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Noticias noticias = db.Noticias.Find(id);
-            db.Noticias.Remove(noticias);
+            Noticias noticia = db.Noticias.Find(id);
+            db.Noticias.Remove(noticia);
+            
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -131,6 +219,66 @@ namespace JornalAberto2019.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // src: https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
+        // popular categorias
+        private void PopulateNoticiasCategorias(Noticias noticia)
+        {
+            var categorias = db.Categorias;
+            var noticiasCategorias = new HashSet<int>(noticia.ListaCategorias.Select(c => c.CategoriaID));
+            var viewModel = new List<CategoriasNoticias>();
+            foreach (var categoria in categorias)
+            {
+                viewModel.Add(new CategoriasNoticias
+                {
+                    CategoriaID = categoria.CategoriaID,
+                    NomeCategoria = categoria.NomeCategoria,
+                    Atribuido = noticiasCategorias.Contains(categoria.CategoriaID)
+                });
+            }
+            ViewBag.Categorias = viewModel;
+        }
+
+        // atualizar categorias
+        private Noticias UpdateNoticiasCategorias(string[] selectedCategories, Noticias noticiaToUpdate)
+        {
+            // se nao for selecionada nenhuma categoria, é iniciada uma lista vazia
+            if (selectedCategories == null)
+            {
+                noticiaToUpdate.ListaCategorias = new List<Categorias>();
+            }
+
+            var selectedCategoriesHS = new HashSet<string>(selectedCategories);
+            var noticiasCategorias = new HashSet<int>
+                (noticiaToUpdate.ListaCategorias.Select(l => l.CategoriaID));
+            // itera pelas categorias
+            foreach (var categoria in db.Categorias)
+            {
+                // 
+                if (selectedCategoriesHS.Contains(categoria.CategoriaID.ToString()))
+                {
+                    if (!noticiasCategorias.Contains(categoria.CategoriaID))
+                    {
+                        noticiaToUpdate.ListaCategorias.Add(categoria);
+                    }
+                }
+                else // se a categoria nao foi selectionada, mas está atribuida à noticia
+                {
+                    if (noticiasCategorias.Contains(categoria.CategoriaID))
+                    {
+                        noticiaToUpdate.ListaCategorias.Remove(categoria);
+                    }
+                }
+            }
+
+            return noticiaToUpdate;
+        }
+
+        // obter user ID
+        private string getUserID()
+        {   
+            return User.Identity.GetUserId();
         }
     }
 }

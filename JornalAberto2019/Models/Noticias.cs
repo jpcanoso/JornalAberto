@@ -1,34 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
+using System.Web.Mvc;
 
 namespace JornalAberto2019.Models
 {
+    //src: https://medium.com/@MoienTajik/using-tinymce-in-asp-net-mvc-ab2cebfce278
     public class Noticias
     {
         public Noticias()
         {
-            Categorias = new HashSet<NoticiasCategorias>();
-            Imagens = new HashSet<NoticiasImagens>();
+            ListaCategorias = new HashSet<Categorias>();
+            NumeroVisualizacoes = 0;
         }
 
         [Key]
         public int NoticiaID { get; set; }
 
-
         public string InseridaPorID { get; set; }
         public virtual ApplicationUser InseridaPor { get; set; }
 
-        [Required]
         [Column(TypeName = "date")]
         public DateTime DataNoticia { get; set; }
-
-        public virtual ICollection<NoticiasCategorias> Categorias { get; set; }
-
-        public virtual ICollection<NoticiasImagens> Imagens { get; set; }
 
         [Required]
         [StringLength(80)]
@@ -39,7 +34,8 @@ namespace JornalAberto2019.Models
         public string Descricao { get; set; }
 
         [Required]
-        [StringLength(1000)]
+        [AllowHtml]
+        [UIHint("tinymce_jquery_full")]
         public string Corpo { get; set; }
 
         [Required]
@@ -49,5 +45,8 @@ namespace JornalAberto2019.Models
         public virtual ApplicationUser AprovadaPor { get; set; }
 
         public int? NumeroVisualizacoes { get; set; }
+
+        // muitos para muitos Categorias
+        public virtual ICollection<Categorias> ListaCategorias { get; set; }
     }
 }

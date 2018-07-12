@@ -53,16 +53,15 @@ namespace JornalAberto2019.Models
         // Nomes das tabelas
         public virtual DbSet<Categorias> Categorias { get; set; }                   // Categorias
         public virtual DbSet<Imagens> Imagens { get; set; }                         // Imagens
-        public virtual DbSet<NoticiasCategorias> NoticiasCategorias { get; set; }   // NoticiasCategorias
-        public virtual DbSet<NoticiasImagens> NoticiasImagens { get; set; }         // NoticiasImagens
         public virtual DbSet<Noticias> Noticias { get; set; }                       // Noticias
         public virtual DbSet<Pagamentos> Pagamentos { get; set; }                   // Pagamentos
         public virtual DbSet<Publicidade> Publicidade { get; set; }                 // Publicidade
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();  // impede a EF de 'pluralizar' os nomes das tabelas
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>(); // força a que a chave forasteira não tenha a propriedade 'on delete cascade'
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>(); // força a que a chave forasteira não tenha a propriedade 'on delete cascade'
             base.OnModelCreating(modelBuilder);
 
             // Multiplas chaves forasteiras na mesma tabela

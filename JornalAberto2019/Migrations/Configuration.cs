@@ -30,10 +30,13 @@ namespace JornalAberto2019.Migrations
                 roleManager.Create(role);
 
                 // Adicionar um primeiro Utilizador para gerir o site com todos os privilégios
-                var user = new ApplicationUser();
-                user.UserName = "admin";
-                user.Email = "admin@jornalaberto.pt";
-                user.EmailConfirmed = true;
+                var user = new ApplicationUser
+                {
+                    UserName = "admin",
+                    Nome = "Administrador",
+                    Email = "admin@jornalaberto.pt",
+                    EmailConfirmed = true
+                };
 
                 var chkUser = userManager.Create(user, password);
 
@@ -52,10 +55,13 @@ namespace JornalAberto2019.Migrations
                 roleManager.Create(role);
 
                 // Adicionar um utilizador com as permissoes da role
-                var user = new ApplicationUser();
-                user.UserName = "moderador";
-                user.Email = "moderador@jornalaberto.pt";
-                user.EmailConfirmed = true;
+                var user = new ApplicationUser
+                {
+                    UserName = "moderador",
+                    Nome = "Moderador",
+                    Email = "moderador@jornalaberto.pt",
+                    EmailConfirmed = true
+                };
 
                 var chkUser = userManager.Create(user, password);
 
@@ -77,6 +83,7 @@ namespace JornalAberto2019.Migrations
                 var user = new ApplicationUser
                 {
                     UserName = "utilizador",
+                    Nome = "Utilizador",
                     Email = "utilizador@jornalaberto.pt",
                     EmailConfirmed = true
                 };

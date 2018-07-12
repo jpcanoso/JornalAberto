@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using JornalAberto2019.Helpers;
+using JornalAberto2019.Models;
 
 namespace JornalAberto2019.Controllers
 {
     public class HomeController : BaseController
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
             return View();
@@ -49,6 +54,18 @@ namespace JornalAberto2019.Controllers
             cookie.Expires = DateTime.Now.AddYears(1); // duração do cookie de 1 ano
             Response.Cookies.Add(cookie);
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> Noticias(string searchString)
+        {
+            var noticias = from n in db.Noticias select n;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                noticias = noticias.Where(s => s.Titulo.Contains(searchString));
+            }
+
+            return View(await noticias.ToListAsync());
         }
     }
 }

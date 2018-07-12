@@ -27,15 +27,15 @@
             @Html.DisplayNameFor(model => model.Descricao)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Corpo)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Aprovada)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NumeroVisualizacoes)
         </th>
-        <th></th>
+        <th>
+            Categorias
+        </th>
+        <th>Opções</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -56,18 +56,23 @@
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Corpo)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Aprovada)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.NumeroVisualizacoes)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.NoticiaID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.NoticiaID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.NoticiaID })
+            @{
+                foreach (var categoria in item.ListaCategorias)
+                {
+                    @categoria.NomeCategoria <br />
+                }
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.NoticiaID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.NoticiaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.NoticiaID })
         </td>
     </tr>
 }
