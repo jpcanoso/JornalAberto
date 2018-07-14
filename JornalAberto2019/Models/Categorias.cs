@@ -18,6 +18,7 @@ namespace JornalAberto2019.Models
 
         [Required]
         [StringLength(60)]
+        [Display(Name = "Name", ResourceType = typeof(Resources))]
         public string NomeCategoria { get; set; }
 
         public bool Menu { get; set; }

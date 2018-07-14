@@ -55,6 +55,7 @@ namespace JornalAberto2019.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            ViewBag.Categorias = db.Categorias;
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -106,6 +107,7 @@ namespace JornalAberto2019.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Categorias = db.Categorias;
             return View();
         }
 
@@ -166,6 +168,7 @@ namespace JornalAberto2019.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
+            ViewBag.Categorias = db.Categorias;
             return View();
         }
 
@@ -176,6 +179,7 @@ namespace JornalAberto2019.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+            ViewBag.Categorias = db.Categorias;
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
@@ -206,6 +210,7 @@ namespace JornalAberto2019.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
+            ViewBag.Categorias = db.Categorias;
             return View();
         }
 
@@ -224,6 +229,7 @@ namespace JornalAberto2019.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
+            ViewBag.Categorias = db.Categorias;
             if (!ModelState.IsValid)
             {
                 return View(model);

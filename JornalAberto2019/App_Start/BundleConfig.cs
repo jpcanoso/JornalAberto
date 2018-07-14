@@ -25,6 +25,31 @@ namespace JornalAberto2019
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // Frontend
+            bundles.Add(new StyleBundle("~/Frontend/css").Include(
+                      "~/assets/css/bootstrap.min.css",
+                      "~/assets/css/owl.carousel.css",
+                      "~/assets/css/owl.theme.default.css",
+                      "~/assets/css/font-awesome.min.css",
+                      "~/assets/css/style.css"));
+
+            bundles.Add(new ScriptBundle("~/Frontend/js").Include(
+                      "~/assets/js/jquery.min.js",
+                      "~/assets/js/bootstrap.min.js",
+                      "~/assets/js/owl.carousel.min.js",
+                      "~/assets/js/main.js"));
+
+            // Backend
+            bundles.Add(new StyleBundle("~/Backend/css").Include(
+                      "~/assets/css/bootstrap.min.css",
+                      "~/assets/css/sb-admin.css",
+                      "~/assets/css/font-awesome.min.css"));
+
+            bundles.Add(new ScriptBundle("~/Backend/js").Include(
+                      "~/assets/js/jquery.min.js",
+                      "~/assets/js/bootstrap.min.js"));
+
         }
     }
 }

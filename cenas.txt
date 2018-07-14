@@ -1,0 +1,17 @@
+Frontend:
+Tema: Magnews by colorlib.com (Licença Creative Commons 3.0)
+- Bootstrap v3.3.7 (Licença MIT)
+- Font Awesome v5.1.0
+- jQuery v2.2.4 (Licença MIT)
+
+Backend:
+Tema: SB Admin by startbootstrap.com (Licença MIT)
+https://startbootstrap.com/template-overviews/sb-admin/
+- Bootstrap v3.3.7 (Licença MIT)
+- Font Awesome
+- jQuery v2.2.4 (Licença MIT)
+NuGet:
+- SendGrid 
+- EntityFramework v6.2.0
+- TinyMCE v
+- 

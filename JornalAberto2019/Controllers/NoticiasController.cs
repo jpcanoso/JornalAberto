@@ -15,7 +15,6 @@ namespace JornalAberto2019.Controllers
     public class NoticiasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private ApplicationUserManager _userManager;
 
         // GET: Noticias
         public ActionResult Index()
@@ -238,41 +237,6 @@ namespace JornalAberto2019.Controllers
                 });
             }
             ViewBag.Categorias = viewModel;
-        }
-
-        // atualizar categorias
-        private Noticias UpdateNoticiasCategorias(string[] selectedCategories, Noticias noticiaToUpdate)
-        {
-            // se nao for selecionada nenhuma categoria, é iniciada uma lista vazia
-            if (selectedCategories == null)
-            {
-                noticiaToUpdate.ListaCategorias = new List<Categorias>();
-            }
-
-            var selectedCategoriesHS = new HashSet<string>(selectedCategories);
-            var noticiasCategorias = new HashSet<int>
-                (noticiaToUpdate.ListaCategorias.Select(l => l.CategoriaID));
-            // itera pelas categorias
-            foreach (var categoria in db.Categorias)
-            {
-                // 
-                if (selectedCategoriesHS.Contains(categoria.CategoriaID.ToString()))
-                {
-                    if (!noticiasCategorias.Contains(categoria.CategoriaID))
-                    {
-                        noticiaToUpdate.ListaCategorias.Add(categoria);
-                    }
-                }
-                else // se a categoria nao foi selectionada, mas está atribuida à noticia
-                {
-                    if (noticiasCategorias.Contains(categoria.CategoriaID))
-                    {
-                        noticiaToUpdate.ListaCategorias.Remove(categoria);
-                    }
-                }
-            }
-
-            return noticiaToUpdate;
         }
 
         // obter user ID

@@ -13,10 +13,13 @@ namespace JornalAberto2019.Models
     public class ApplicationUser : IdentityUser
     {
         [StringLength(60, ErrorMessage = "O Nome não pode possuir mais que 60 caracteres.")]
+        [Display(Name = "Name", ResourceType = typeof(Resources))]
         public string Nome { get; set; }
 
+        [Display(Name = "Points", ResourceType = typeof(Resources))]
         public int? Pontos { get; set; }
 
+        [Display(Name = "Avatar", ResourceType = typeof(Resources))]
         public string Foto { get; set; }
 
         public virtual ICollection<Noticias> Inseriu { get; set; }
