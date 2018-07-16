@@ -10,7 +10,8 @@ using JornalAberto2019.Models;
 
 namespace JornalAberto2019.Areas.Admin.Controllers
 {
-    public class CategoriasController : Controller
+    [Authorize(Roles = "Administrador,Moderador")]
+    public class CategoryController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

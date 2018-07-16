@@ -1,0 +1,143 @@
+﻿@using System.Activities.Expressions
+@model JornalAberto2019.Models.Noticias
+
+@{
+    ViewBag.Title = Resources.Create;
+}
+
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">
+            @ViewBag.Title
+        </h2>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-body">
+            <div class="table-responsive">
+
+                @using (Html.BeginForm("Create", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>@Resources.News</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DataNoticia, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.DataNoticia, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DataNoticia, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <table>
+                                    <tr>
+                                        @{
+                                            int cnt = 0;
+                                            List<JornalAberto2019.Models.CategoriasNoticias> categorias = ViewBag.Categorias;
+
+                                            foreach (var categoria in categorias)
+                                            {
+                                                if (cnt++ % 3 == 0)
+                                                {
+                                                @:</tr><tr>
+                                                }
+                                                @:<td>
+                                                    <input type="checkbox"
+                                                           name="selectedCategories"
+                                                           value="@categoria.CategoriaID"
+                                                           @(Html.Raw(categoria.Atribuido ? "checked=\"checked\"" : "")) />
+                                                    @categoria.NomeCategoria
+                                                @:</td>
+                                            }
+                                        @:</tr>
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Corpo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Corpo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Corpo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group increment">
+                                @Html.LabelFor(model => model.Imagens, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input type="file" name="files" accept=".jpg" class="form-control" />
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>@Resources.Add</button>
+                                    </div>
+
+                                    @Html.ValidationMessageFor(model => model.Imagens, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="clone hide">
+                                <div class="form-group input-group control-group" style="margin-top:10px">
+                                    <input type="file" name="files" accept=".jpg" class="form-control">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> @Resources.Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="@Resources.Create" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+        $(document).ready(function () {
+
+            $(".btn-success").click(function () {
+                var html = $(".clone").html();
+                $(".increment").after(html);
+            });
+
+            $("body").on("click", ".btn-danger", function () {
+                $(this).parents(".control-group").remove();
+            });
+
+        });
+    </script>
+}

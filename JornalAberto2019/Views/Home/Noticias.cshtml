@@ -3,20 +3,24 @@
 <article class="article row-article">
     <div class="article-img">
         <a href="#">
-            <img src="./img/img-md-1.jpg" alt="">
+            <img src="/assets/images/img-md-1.jpg" alt="">
         </a>
     </div>
     <div class="article-body">
         <ul class="article-info">
-            <li class="article-category"><a href="#">News</a></li>
-            <li class="article-type"><i class="fa fa-file-text"></i></li>
+            @{
+                foreach (var categoria in noticia.ListaCategorias)
+                {
+                    <li class="article-category"><a href="#">@categoria.NomeCategoria</a></li>
+                }
+            }
         </ul>
-        <h3 class="article-title"><a href="#">Duis urbanitas eam in, tempor consequat.</a></h3>
+        <h3 class="article-title"><a href="#">@noticia.Titulo</a></h3>
         <ul class="article-meta">
-            <li><i class="fa fa-clock-o"></i> January 31, 2017</li>
-            <li><i class="fa fa-comments"></i> 33</li>
+            <li><i class="fa fa-clock-o"></i> @noticia.DataNoticia</li>
+            <li><i class="fa fa-eye"></i> @noticia.NumeroVisualizacoes</li>
         </ul>
-        <p>Populo tritani laboramus ex mei, no eum iuvaret ceteros euripidis, ne alia sadipscing mei. Te inciderint cotidieque pro, ei iisque docendi qui.</p>
+        <p>@noticia.Descricao</p>
     </div>
 </article>
 }

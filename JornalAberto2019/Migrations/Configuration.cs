@@ -100,12 +100,12 @@ namespace JornalAberto2019.Migrations
             // Seed das categorias
             var categorias = new List<Categorias>
             {
-                new Categorias {CategoriaID = 1, NomeCategoria = "Desporto"},
-                new Categorias {CategoriaID = 2, NomeCategoria = "País"},
-                new Categorias {CategoriaID = 3, NomeCategoria = "Tecnologia"},
-                new Categorias {CategoriaID = 4, NomeCategoria = "Política"},
-                new Categorias {CategoriaID = 5, NomeCategoria = "Fama"},
-                new Categorias {CategoriaID = 6, NomeCategoria = "Cultura"}
+                new Categorias {CategoriaID = 1, NomeCategoria = "Desporto", Menu = true },
+                new Categorias {CategoriaID = 2, NomeCategoria = "País", Menu = true },
+                new Categorias {CategoriaID = 3, NomeCategoria = "Tecnologia", Menu = true },
+                new Categorias {CategoriaID = 4, NomeCategoria = "Política", Menu = true },
+                new Categorias {CategoriaID = 5, NomeCategoria = "Fama", Menu = true },
+                new Categorias {CategoriaID = 6, NomeCategoria = "Cultura", Menu = true }
             };
             categorias.ForEach(cc => context.Categorias.AddOrUpdate(c => c.NomeCategoria, cc));
             context.SaveChanges();

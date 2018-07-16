@@ -6,9 +6,8 @@ using System.Web;
 
 namespace JornalAberto2019.Models
 {
-    public class Imagens
+    public class Imagem
     {
-
         [Key]
         public int ImagemID { get; set; }
 
@@ -20,6 +19,6 @@ namespace JornalAberto2019.Models
         [StringLength(120)]
         public string Path { get; set; }
 
-        public Noticias NoticiaID { get; set; }
+        public virtual Noticias NoticiaID { get; set; }
     }
 }

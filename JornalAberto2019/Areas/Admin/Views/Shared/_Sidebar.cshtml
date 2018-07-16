@@ -1,54 +1,54 @@
 ﻿<div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
-        <li class="active">
+        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "HomeIndex" ? "active" : "" )">
             <a href="@Url.Action("Index", "Home")"><i class="fas fa-tachometer-alt"></i> @Resources.Dashboard</a>
         </li>
-        <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#users"><i class="fas fa-users"></i> @Resources.Users</a>
-            <ul id="users" class="collapse">
-                <li>
-                    <a href="@Url.Action("Index", "User")"><i class="fas fa-users"></i> @Resources.ListUsers</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Create", "User")"><i class="fas fa-user-plus"></i> @Resources.AddUser</a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#roles"><i class="fas fa-gavel"></i> @Resources.Roles</a>
-            <ul id="roles" class="collapse">
-                <li>
-                    <a href="@Url.Action("Index", "Role")"><i class="fas fa-gavel"></i> @Resources.ListRoles</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Create", "Role")"><i class="fas fa-plus"></i> @Resources.AddRole</a>
-                </li>
-            </ul>
-        </li>
-
-        <li>
+        @if (User.IsInRole("Administrador")) { 
+            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "" )">
+                <a href="javascript:;" data-toggle="collapse" data-target="#users"><i class="fas fa-users"></i> @Resources.Users</a>
+                <ul id="users" class="collapse">
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "UserIndex" ? "active" : "" )">
+                        <a href="@Url.Action("Index", "User")"><i class="fas fa-users"></i> @Resources.ListUsers</a>
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "UserCreate" ? "active" : "" )">
+                        <a href="@Url.Action("Create", "User")"><i class="fas fa-user-plus"></i> @Resources.AddUser</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Role" ? "active" : "" )">
+                <a href="javascript:;" data-toggle="collapse" data-target="#roles"><i class="fas fa-gavel"></i> @Resources.Roles</a>
+                <ul id="roles" class="collapse">
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "RoleIndex" ? "active" : "" )">
+                        <a href="@Url.Action("Index", "Role")"><i class="fas fa-gavel"></i> @Resources.ListRoles</a>
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "RoleCreate" ? "active" : "" )">
+                        <a href="@Url.Action("Create", "Role")"><i class="fas fa-plus"></i> @Resources.AddRole</a>
+                    </li>
+                </ul>
+            </li>
+        }
+        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Category" ? "active" : "" )">
             <a href="javascript:;" data-toggle="collapse" data-target="#cat"><i class="fas fa-align-justify"></i> @Resources.Categories</a>
             <ul id="cat" class="collapse">
-                <li>
-                    <a href="@Url.Action("Index", "Role")"><i class="fas fa-align-justify"></i> @Resources.ListCategories</a>
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "CategoryIndex" ? "active" : "" )">
+                    <a href="@Url.Action("Index", "Category")"><i class="fas fa-align-justify"></i> @Resources.ListCategories</a>
                 </li>
-                <li>
-                    <a href="@Url.Action("Create", "Role")"><i class="fas fa-plus"></i> @Resources.AddCategory</a>
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "CategoryCreate" ? "active" : "" )">
+                    <a href="@Url.Action("Create", "Category")"><i class="fas fa-plus"></i> @Resources.AddCategory</a>
                 </li>
             </ul>
         </li>
 
-        <li>
+        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "News" ? "active" : "" )">
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fas fa-newspaper"></i> @Resources.News</a>
             <ul id="demo" class="collapse">
-                <li>
-                    <a href="@Url.Action("Index", "Role")"><i class="fas fa-newspaper"></i> @Resources.ListNews</a>
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "NewsIndex" ? "active" : "" )">
+                    <a href="@Url.Action("Index", "News")"><i class="fas fa-newspaper"></i> @Resources.ListNews</a>
                 </li>
-                <li>
-                    <a href="@Url.Action("Create", "Role")"><i class="fas fa-plus"></i> @Resources.AddNews</a>
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() + ViewContext.RouteData.Values["Action"].ToString() == "NewsCreate" ? "active" : "" )">
+                    <a href="@Url.Action("Create", "News")"><i class="fas fa-plus"></i> @Resources.AddNews</a>
                 </li>
             </ul>
         </li>
-
     </ul>
 </div>

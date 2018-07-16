@@ -24,6 +24,7 @@ namespace JornalAberto2019.Controllers
         public ActionResult Index()
         {
             ViewBag.Categorias = db.Categorias;
+            ViewBag.Noticias = db.Noticias.ToList();
             return View();
         }
 
@@ -51,7 +52,7 @@ namespace JornalAberto2019.Controllers
                 noticias = noticias.Where(s => s.Titulo.Contains(searchString));
             }
 
-            ViewBag.Noticias = noticias;
+            ViewBag.Noticias = db.Noticias.ToList();
 
             return View();
         }

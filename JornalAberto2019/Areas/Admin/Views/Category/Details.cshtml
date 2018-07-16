@@ -1,4 +1,4 @@
-﻿@model JornalAberto2019.Areas.Admin.Models.RoleViewModel
+﻿@model JornalAberto2019.Models.Categorias
 
 @{
     ViewBag.Title = Resources.Details;
@@ -12,28 +12,34 @@
         </h2>
     </div>
 </div>
-<!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
         <div class="panel-body">
             <div class="table-responsive">
-
                 <div>
-                    <h4>@Resources.Roles</h4>
+                    <h4>@Resources.Categories</h4>
                     <hr />
                     <dl class="dl-horizontal">
                         <dt>
-                            @Html.DisplayNameFor(model => model.Name)
+                            @Html.DisplayNameFor(model => model.NomeCategoria)
                         </dt>
 
                         <dd>
-                            @Html.DisplayFor(model => model.Name)
+                            @Html.DisplayFor(model => model.NomeCategoria)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Menu)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Menu)
                         </dd>
 
                     </dl>
                 </div>
                 <p>
-                    @Html.ActionLink(Resources.Edit, "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink(Resources.Edit, "Edit", new { id = Model.CategoriaID }) |
                     @Html.ActionLink(Resources.Back, "Index")
                 </p>
             </div>

@@ -210,10 +210,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\API\CategoriasController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CategoriasController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
@@ -236,7 +236,7 @@
     <Compile Include="Models\Categorias.cs" />
     <Compile Include="Models\CategoriasNoticias.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Imagens.cs" />
+    <Compile Include="Models\Imagem.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Noticias.cs" />
     <Compile Include="Models\Pagamentos.cs" />
@@ -263,6 +263,7 @@
     <Content Include="assets\css\owl.theme.default.css" />
     <Content Include="assets\css\sb-admin.css" />
     <Content Include="assets\css\style.css" />
+    <Content Include="assets\images\img-md-1.jpg" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\jquery.min.js" />
     <Content Include="assets\js\main.js" />
@@ -493,19 +494,19 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
-    <Content Include="Areas\Admin\Views\Categorias\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Categorias\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Categorias\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Categorias\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Categorias\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Details.cshtml" />
     <Content Include="Views\Home\Noticias.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_jquery_full.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\tinymce_jquery_full.cshtml" />
-    <Content Include="Views\Noticias\Create.cshtml" />
-    <Content Include="Views\Noticias\Delete.cshtml" />
-    <Content Include="Views\Noticias\Details.cshtml" />
-    <Content Include="Views\Noticias\Edit.cshtml" />
-    <Content Include="Views\Noticias\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Index.cshtml" />
     <Content Include="Views\Home\Teste.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_SidebarPartial.cshtml" />
@@ -523,7 +524,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="assets\images\" />
     <Folder Include="Content\Uploads\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

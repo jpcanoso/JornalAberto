@@ -1,0 +1,98 @@
+﻿@model JornalAberto2019.Models.Noticias
+
+@{
+    ViewBag.Title = Resources.Details;
+}
+
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">
+            @ViewBag.Title
+        </h2>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-body">
+            <div class="table-responsive">
+
+                <div>
+                    <h4>@Resources.News</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.AprovadaPor.Nome)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.AprovadaPor.Nome)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.InseridaPor.Nome)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.InseridaPor.Nome)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DataNoticia)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DataNoticia)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Titulo)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Titulo)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Descricao)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Descricao)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Corpo)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Corpo)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Aprovada)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Aprovada)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NumeroVisualizacoes)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.NumeroVisualizacoes)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink(Resources.Edit, "Edit", new { id = Model.NoticiaID }) |
+                    @Html.ActionLink(Resources.Back, "Index")
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

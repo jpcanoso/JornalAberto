@@ -97,6 +97,13 @@ namespace JornalAberto2019.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var role = await RoleManager.FindByIdAsync(id);
+
+            // não elimines as nossas roles!
+            if (role.Name == "Administrador" || role.Name == "Moderador" || role.Name == "Utilizador")
+            {
+                return View();
+            }
+
             if (role == null)
             {
                 return HttpNotFound();
@@ -151,10 +158,18 @@ namespace JornalAberto2019.Areas.Admin.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 var role = await RoleManager.FindByIdAsync(id);
+
                 if (role == null)
                 {
                     return HttpNotFound();
                 }
+
+                // não elimines as nossas roles!
+                if (role.Name == "Administrador" || role.Name == "Moderador" || role.Name == "Utilizador")
+                {
+                    return View();
+                }
+
                 await RoleManager.DeleteAsync(role);
                 return RedirectToAction("Index");
             }

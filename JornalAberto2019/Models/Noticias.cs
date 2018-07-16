@@ -46,6 +46,9 @@ namespace JornalAberto2019.Models
 
         public int? NumeroVisualizacoes { get; set; }
 
+        // uma noticia varias imagens
+        public virtual ICollection<Imagem> Imagens { get; set; }
+
         // muitos para muitos Categorias
         public virtual ICollection<Categorias> ListaCategorias { get; set; }
     }
