@@ -330,7 +330,6 @@ namespace JornalAberto2019.Areas.Admin.Controllers
                     return true;
                 }
             }
-
             return false;
         }
     }

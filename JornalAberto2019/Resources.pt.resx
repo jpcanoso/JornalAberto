@@ -243,4 +243,10 @@
   <data name="Index" xml:space="preserve">
     <value>Lista</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Início</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
 </root>

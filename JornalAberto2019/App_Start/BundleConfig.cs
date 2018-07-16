@@ -50,6 +50,9 @@ namespace JornalAberto2019
                       "~/assets/js/jquery.min.js",
                       "~/assets/js/bootstrap.min.js"));
 
+            bundles.Add(new ScriptBundle("~/Backend/jquery").Include(
+                      "~/assets/js/jquery.min.js"));
+
         }
     }
 }

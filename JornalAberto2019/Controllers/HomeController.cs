@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using JornalAberto2019.Helpers;
@@ -14,46 +12,65 @@ namespace JornalAberto2019.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Teste()
-        {
-            ViewBag.Categorias = db.Categorias;
-            ViewBag.Noticias = db.Noticias;
-            return View();
-        }
-
-        public ActionResult Index()
-        {
-            ViewBag.Categorias = db.Categorias;
-            ViewBag.Noticias = db.Noticias.ToList();
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult Noticias(string searchString)
+        public ActionResult Index(string search)
         {
             ViewBag.Categorias = db.Categorias;
             var noticias = from n in db.Noticias select n;
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(search))
             {
-                noticias = noticias.Where(s => s.Titulo.Contains(searchString));
+                noticias = noticias.Where(s => s.Titulo.Contains(search));
             }
 
-            ViewBag.Noticias = db.Noticias.ToList();
+            var imagem = from i in db.Imagens select i;
 
+
+            ViewBag.Noticias = noticias.ToList();
+            return View();
+        }
+
+        public ActionResult Sobre()
+        {
+            ViewBag.Categorias = db.Categorias;
+            return View();
+        }
+
+        public ActionResult Categoria(int cat)
+        {
+            ViewBag.Categorias = db.Categorias;
+            //var noticias = from n in db.Noticias where n;
+
+            //var result = from news in db.Noticias
+            //             select new
+            //             {
+            //                 id = news.NoticiaID,
+            //                 InseridaPorID = news.InseridaPorID,
+            //                 DataNoticia = news.DataNoticia,
+            //                 Titulo = news.Titulo,
+            //                 Descricao = news.Descricao,
+            //                 Corpo = news.Corpo,
+            //                 Aprovada = news.Aprovada,
+            //                 AprovadaPorID = news.AprovadaPorID,
+            //                 NumeroVisualizacoes = news.NumeroVisualizacoes,
+            //                 NoticiasCategorias = news.ListaCategorias.Select(ca => new { id = ca.CategoriaID })
+            //             };
+
+            ViewBag.Noticias = from c in db.Categorias
+                        from n in db.Noticias
+                        where c.CategoriaID == cat
+                        select new
+                        {
+                            id = n.NoticiaID,
+                            InseridaPorID = n.InseridaPorID,
+                            DataNoticia = n.DataNoticia,
+                            Titulo = n.Titulo,
+                            Descricao = n.Descricao,
+                            Corpo = n.Corpo,
+                            Aprovada = n.Aprovada,
+                            AprovadaPorID = n.AprovadaPorID,
+                            NumeroVisualizacoes = n.NumeroVisualizacoes
+                        };
+            //ViewBag.Noticias = teste;
             return View();
         }
 
